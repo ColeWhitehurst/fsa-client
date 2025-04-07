@@ -27,7 +27,7 @@ const Register = ({ setToken }) => {
     } catch (error) {
       setError(error.message);
     }
-  }
+  };
 
   return (
     <>

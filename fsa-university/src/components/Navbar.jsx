@@ -6,22 +6,22 @@ const Navbar = ({ token, setToken }) => {
     <div>
         {!token ? (
        <div className="guest">
-        <Link to="/">Home</Link>
-        <Link to="/faculty">Faculty</Link>
-        <Link to="/departments">All Departments</Link>
-        <Link to="/login">Login</Link>
-        <Link to="/register">Register</Link>
+        <Link to="/">Home</Link><br />
+        <Link to="/faculty">Faculty</Link><br />
+        <Link to="/departments">Departments</Link><br />
+        <Link to="/login">Login</Link><br />
+        <Link to="/register">Register</Link><br />
       </div>
       ) : (
       <div className="user">
-        <Link to="/">Home</Link>
-        <Link to="/faculty">Faculty</Link>
-        <Link to="/departments">All Departments</Link>
-        <Link to="/departments/english">English</Link>
-        <Link to="/departments/history">History</Link>
-        <Link to="/departments/latin">Latin</Link>
-        <Link to="/departments/math">Math</Link>
-        <Link to="/departments/science">Science</Link>
+        <Link to="/">Home</Link><br />
+        <Link to="/faculty">Faculty</Link><br />
+        <Link to="/departments">Departments</Link><br />
+        <Link to="/departments/english">English</Link><br />
+        <Link to="/departments/history">History</Link><br />
+        <Link to="/departments/latin">Latin</Link><br />
+        <Link to="/departments/math">Math</Link><br />
+        <Link to="/departments/science">Science</Link><br />
         <Link
           onClick={() => {
             setToken(null);
