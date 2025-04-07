@@ -1,6 +1,18 @@
 import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import './App.css'
+import './App.css';
+import Navbar from './components/Navbar';
+import Account from './components/Account';
+import Faculty from './components/Faculty';
+import Departments from './components/Departments';
+import English from './components/Subjects/English';
+import History from './components/Subjects/History';
+import Latin from './components/Subjects/Latin';
+import Math from './components/Subjects/Math';
+import Science from './components/Subjects/Science';
+import Login from './components/Login';
+import Register from './components/Register';
+
 
 function App() {
   const [token, setToken] = useState(null);
