@@ -27,7 +27,7 @@ function App() {
       <div className="container">
         <Routes>
           <Route path="/" element={<Account token={token} />} />
-          <Route path="/faculty" element={<Professors />} />
+          <Route path="/professors" element={<Professors />} />
           <Route path="/departments" element={<Departments />} />
           <Route path="/departments/english" element={<English />} />
           <Route path="/departments/history" element={<History />} />
