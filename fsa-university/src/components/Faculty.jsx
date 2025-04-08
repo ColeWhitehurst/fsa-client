@@ -1,9 +1,9 @@
 
 
-const Faculty = () => {
+const Professors = () => {
     return ( 
         <h3>Faculty</h3>
      );
 }
  
-export default Faculty;
+export default Professors;

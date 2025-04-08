@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Account from "./components/Account";
-import Faculty from "./components/Faculty";
+import Professors from "./components/Professors";
 import Departments from "./components/Departments";
 import English from "./components/Subjects/English";
 import History from "./components/Subjects/History";
@@ -27,7 +27,7 @@ function App() {
       <div className="container">
         <Routes>
           <Route path="/" element={<Account token={token} />} />
-          <Route path="/faculty" element={<Faculty />} />
+          <Route path="/faculty" element={<Professors />} />
           <Route path="/departments" element={<Departments />} />
           <Route path="/departments/english" element={<English />} />
           <Route path="/departments/history" element={<History />} />
