@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import Home from "./components/Home"
 import Navbar from "./components/Navbar";
 import Account from "./components/Account";
 import Professors from "./components/Professors";
@@ -23,10 +24,10 @@ function App() {
           <Navbar />
         </div>
       </div>
-      <h1 className="fsa">Full Stack Academy University</h1>
       <div className="container">
         <Routes>
-          <Route path="/" element={<Account token={token} />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/account" element={<Account token={token} />} />
           <Route path="/professors" element={<Professors />} />
           <Route path="/departments" element={<Departments />} />
           <Route path="/departments/english" element={<English />} />
