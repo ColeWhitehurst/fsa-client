@@ -6,6 +6,14 @@ const Account = ({ token }) => {
   const [account, setAccount] = useState(null);
   const [error, setError] = useState(null);
 
+  // useEffect(() => {
+  //   async function authorizeUser() {
+  //     const response = await getAccount(token);
+  //     setAccount(response);
+  //   }
+  //   authorizeUser();
+  // }, []);
+
   return (
     <>
       {account && (
