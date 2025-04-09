@@ -17,11 +17,6 @@ const Professors = () => {
 
     const professorsToDisplay = searchParam ? professors.filter((professor) => professor.name.toLowerCase().includes(searchParam)) : professors;
 
-    async function handleDetails(professorId) {
-        const APIResponse = await getSingleProfessor(professorId);
-        navigate(`/professors/${professorId}`);
-    }
-
     return ( 
         <>
       <div className="search">
@@ -48,12 +43,6 @@ const Professors = () => {
                 className="profPics"
               />
               <br />
-              <button
-                className="details"
-                onClick={() => handleDetails(professor.id)}
-              >
-                More Details
-              </button>
               <br />
               <br />
             </div>
