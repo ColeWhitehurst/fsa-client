@@ -33,12 +33,6 @@ const English = ({ token }) => {
     getDepartmentInfo();
   }, []);
 
-//   const professorsToDisplay = searchParam
-//     ? professors.filter((professor) =>
-//         professor.name.toLowerCase().includes(searchParam)
-//       )
-//     : professors;
-
   const handleRemove = async (professorId) => {
     try {
       const response = await removeDepartmentProfessor(professorId, token);

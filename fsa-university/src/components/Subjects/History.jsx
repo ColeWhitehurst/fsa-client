@@ -1,13 +1,56 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import {
+    getSingleDepartment,
+    getDepartmentProfessors,
+    removeDepartmentProfessor,
+  } from "../../API/departments";
 
 const History = () => {
   const [department, setDepartment] = useState(null);
   const [professors, setProfessors] = useState(null);
   const [error, setError] = useState(null);
-  const [searchParam, setSearchParam] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    async function getHistory() {
+      const response = await getSingleDepartment(id);
+      return response;
+    }
+    async function getProfessorsByDepartment() {
+      const response = await getDepartmentProfessors(id);
+      return response;
+    }
+
+    async function getDepartmentInfo() {
+      const responseDpmt = await getHistory(id);
+      const responseProf = await getProfessorsByDepartment(id);
+      setDepartment(responseDpmt);
+      setProfessors(responseProf);
+    }
+
+    getDepartmentInfo();
+  }, []);
+
+  const handleRemove = async (professorId) => {
+    try {
+      const response = await removeDepartmentProfessor(professorId, token);
+      setProfessors(response);
+    } catch (err) {
+      setError(error.message);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await removeDepartment(id);
+      setDepartment(response);
+      navigate("/departments");
+    } catch (err) {
+      setError(error.message);
+    }
+  };
 
   return (
     <>
