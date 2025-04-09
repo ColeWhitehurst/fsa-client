@@ -11,7 +11,7 @@ const Register = ({ setToken }) => {
     e.preventDefault();
     try {
       const response = await fetch(
-        "https://localhost:3000/register",
+        "https://localhost:3000/api/register",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

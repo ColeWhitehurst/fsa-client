@@ -16,7 +16,7 @@ const [email, setEmail] = useState("");
     }
     try {
       const response = await fetch(
-        "https://localhost:3000/login",
+        "https://localhost:3000/api/login",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
