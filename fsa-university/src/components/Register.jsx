@@ -55,7 +55,7 @@ const Register = ({ setToken }) => {
         </label>
         <br />
         <label>
-          username:{" "}
+          Username:{" "}
           <input
             value={username}
             placeholder="Enter Your Username"

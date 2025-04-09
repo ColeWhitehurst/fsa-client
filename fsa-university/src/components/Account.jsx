@@ -18,7 +18,7 @@ const Account = ({ token }) => {
     <>
       {account && (
         <div key={account.id}>
-          <h2>Welcome {account.email}</h2>
+          <h2>Welcome {account.username}</h2>
           <p>First Name: {account.firstname} </p>
           <p>Last Name: {account.lastname} </p>
         </div>
