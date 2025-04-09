@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { authorizeAccount } from "../API/authorize";
 
-const Account = ({ token }) => {
+const Account = () => {
   const navigate = useNavigate();
   const [account, setAccount] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     async function authorizeUser() {
-      const response = await authorizeAccount(token);
+      const response = await authorizeAccount(localStorage.getItem("token"));
       setAccount(response);
     }
     authorizeUser();

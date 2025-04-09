@@ -16,7 +16,7 @@ const [username, setUsername] = useState("");
     }
     try {
       const response = await fetch(
-        "https://localhost:3000/api/login",
+        "http://localhost:3000/api/login",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -24,7 +24,8 @@ const [username, setUsername] = useState("");
         }
       );
       const result = await response.json();
-      setToken(result.token);
+      setToken(result);
+      localStorage.setItem("token", result);
       setSuccessMessage(`${result.message} Welcome ${result.username}`);
       setUsername("");
       setPassword("");
@@ -32,7 +33,7 @@ const [username, setUsername] = useState("");
     } catch (error) {
       setError(error.message);
     }
-  }
+  };
 
   return (
     <>

@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 import fsaLogo from '../assets/fsa-logo.png';
 
 
-const Navbar = ({ token, setToken }) => {
+const Navbar = ({ setToken }) => {
+
   return (
     <nav className="navbar">
       <div className="nav-left">
-        {!token ? (
+        {!localStorage.getItem("token") ? (
           <div className="guest">
             <Link to="/">Home</Link>
             <Link to="/professors">Professors</Link>
@@ -20,15 +21,15 @@ const Navbar = ({ token, setToken }) => {
             <Link to="/">Home</Link>
             <Link to="/professors">Professors</Link>
             <Link to="/departments">Departments</Link>
-            <Link to="/departments/english">English</Link>
-            <Link to="/departments/history">History</Link>
-            <Link to="/departments/latin">Latin</Link>
-            <Link to="/departments/math">Math</Link>
-            <Link to="/departments/science">Science</Link>
+            <Link to="/departments/1">English</Link>
+            <Link to="/departments/2">History</Link>
+            <Link to="/departments/3">Latin</Link>
+            <Link to="/departments/4">Math</Link>
+            <Link to="/departments/5">Science</Link>
             <Link
               to="/"
               onClick={() => {
-                setToken(null);
+                localStorage.removeItem("token");
                 window.location.reload();
               }}
             >

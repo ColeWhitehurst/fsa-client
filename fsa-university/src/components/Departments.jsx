@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { getDepartments, getSingleDepartment } from "../API/departments";
+import { addDepartment, getDepartments, getSingleDepartment } from "../API/departments";
 
 const Departments = () => {
   const [departments, setDepartments] = useState([]);
@@ -25,6 +25,12 @@ const Departments = () => {
     const APIResponse = await getSingleDepartment(departmentId);
     navigate(`/departments/${departmentId}`);
   };
+
+  async function handleAdd(e) {
+    e.preventDefault();
+    const APIResponse = await addDepartment(localStorage.getItem("token"));
+    setDepartments(APIResponse);
+  }
 
   return (
     <>
@@ -52,6 +58,7 @@ const Departments = () => {
                 className="dpmtPics"
               />
               <br />
+              <br />
               <button
                 className="details"
                 onClick={() => handleDetails(department.id)}
@@ -60,6 +67,11 @@ const Departments = () => {
               </button>
               <br />
               <br />
+              {localStorage.getItem("token") && (
+                <form onSubmit={handleAdd} className="addDpmt">
+
+                </form>
+              )}
             </div>
           );
         })}

@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
-    getSingleDepartment,
-    getDepartmentProfessors,
-    removeDepartmentProfessor,
-  } from "../../API/departments";
+  getSingleDepartment,
+  getDepartmentProfessors,
+  removeDepartmentProfessor,
+  removeDepartment
+} from "../../API/departments";
 
-const Science = () => {
+const Science = ({ token }) => {
   const [department, setDepartment] = useState(null);
   const [professors, setProfessors] = useState(null);
   const [error, setError] = useState(null);
@@ -35,19 +36,25 @@ const Science = () => {
 
   const handleRemove = async (professorId) => {
     try {
-      const response = await removeDepartmentProfessor(professorId, token);
+      const response = await removeDepartmentProfessor(
+        professorId,
+        localStorage.getItem("token")
+      );
       setProfessors(response);
     } catch (err) {
-      setError(error.message);
+      setError(err.message);
     }
   };
 
   const handleDelete = async (id) => {
     try {
-      const response = await removeDepartment(id);
+      const response = await removeDepartment(
+        id,
+        localStorage.getItem("token")
+      );
       setDepartment(response);
       navigate("/departments");
-    } catch (err) {
+    } catch (error) {
       setError(error.message);
     }
   };
@@ -72,10 +79,12 @@ const Science = () => {
               className="singular"
             />
             <br />
-            {token && (
+            {localStorage.getItems("token") && (
               <div>
                 <button
-                  onClick={() => handleDelete(department.id, token)}
+                  onClick={() =>
+                    handleDelete(department.id, localStorage.getItem("token"))
+                  }
                   className="removeDpmt"
                 >
                   Remove Department
@@ -97,7 +106,9 @@ const Science = () => {
                 <img src={idx.image} alt={idx.name} className="profPics" />
                 <br />
                 <button
-                  onClick={() => handleRemove(idx.id, token)}
+                  onClick={() =>
+                    handleRemove(idx.id, localStorage.getItem("token"))
+                  }
                   className="removeProf"
                 >
                   Remove Professor from Department
