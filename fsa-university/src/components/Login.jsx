@@ -40,7 +40,7 @@ const [username, setUsername] = useState("");
       {error && <p>{error}</p>}
       <form onSubmit={handleSubmit} className="login">
         <label>
-          username:{" "}
+          Username:{" "}
           <input
             value={username}
             placeholder="Enter Your username"
