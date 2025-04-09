@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const Register = ({ setToken }) => {
   const [error, setError] = useState(null);
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -15,12 +15,12 @@ const Register = ({ setToken }) => {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password, firstName, lastName }),
+          body: JSON.stringify({ username, password, firstName, lastName }),
         }
       );
       const result = await response.json();
       setToken(result.token);
-      setEmail("");
+      setUsername("");
       setPassword("");
       setFirstName("");
       setLastName("");
@@ -55,11 +55,11 @@ const Register = ({ setToken }) => {
         </label>
         <br />
         <label>
-          Email:{" "}
+          username:{" "}
           <input
-            value={email}
+            value={username}
             placeholder="Enter Your Username"
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setusername(e.target.value)}
             required
           />
           <br />
