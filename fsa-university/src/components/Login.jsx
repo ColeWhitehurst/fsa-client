@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = ({ setToken }) => {
-const [email, setEmail] = useState("");
+const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [successMessage, setSuccessMessage] = useState(null);
   const [error, setError] = useState(null);
@@ -10,23 +10,23 @@ const [email, setEmail] = useState("");
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (!email && !password) {
+    if (!username && !password) {
       setError("This field is required.");
       console.error(error);
     }
     try {
       const response = await fetch(
-        "https://localhost:3000/login",
+        "https://localhost:3000/api/login",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
+          body: JSON.stringify({ username, password }),
         }
       );
       const result = await response.json();
       setToken(result.token);
-      setSuccessMessage(`${result.message} Welcome ${result.email}`);
-      setEmail("");
+      setSuccessMessage(`${result.message} Welcome ${result.username}`);
+      setUsername("");
       setPassword("");
       navigate("/");
     } catch (error) {
@@ -40,11 +40,11 @@ const [email, setEmail] = useState("");
       {error && <p>{error}</p>}
       <form onSubmit={handleSubmit} className="login">
         <label>
-          Email:{" "}
+          username:{" "}
           <input
-            value={email}
-            placeholder="Enter Your Email"
-            onChange={(e) => setEmail(e.target.value)}
+            value={username}
+            placeholder="Enter Your username"
+            onChange={(e) => setUsername(e.target.value)}
             required
           />
           <br />

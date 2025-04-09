@@ -15,12 +15,7 @@ const Professors = () => {
         renderProfessors();
     }, []);
 
-    const professorsToDisplay = searchParam ? professors.filter((professor) => professors.name.toLowerCase().includes(searchParam)) : professors;
-
-    async function handleDetails(professorId) {
-        const APIResponse = await getSingleProfessor(professorId);
-        navigate(`/professors/${professorId}`);
-    }
+    const professorsToDisplay = searchParam ? professors.filter((professor) => professor.name.toLowerCase().includes(searchParam)) : professors;
 
     return ( 
         <>
@@ -39,21 +34,15 @@ const Professors = () => {
           return (
             <div key={professor.id} className="professor">
               <h4>{professor.name}</h4>
-              <h5>{professor.description}</h5>
-              <h5>{professor.professors}</h5>
+              <h5>{professor.departmentId}</h5>
+              <h5>{professor.bio}</h5>
               <h5>{professor.email}</h5>
               <img
                 src={professor.image}
                 alt={professor.name}
-                className="dpmtPics"
+                className="profPics"
               />
               <br />
-              <button
-                className="details"
-                onClick={() => handleDetails(professor.id)}
-              >
-                More Details
-              </button>
               <br />
               <br />
             </div>

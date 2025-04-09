@@ -1,4 +1,4 @@
-const API = "http://localhost:3000/professors";
+const API = "http://localhost:3000/api/professors";
 
 // get /professors
 export const getProfessors = async () => {

@@ -30,11 +30,11 @@ function App() {
           <Route path="/account" element={<Account token={token} />} />
           <Route path="/professors" element={<Professors />} />
           <Route path="/departments" element={<Departments />} />
-          <Route path="/departments/english" element={<English />} />
-          <Route path="/departments/history" element={<History />} />
-          <Route path="/departments/latin" element={<Latin />} />
-          <Route path="/departments/math" element={<Math />} />
-          <Route path="/departments/science" element={<Science />} />
+          <Route path="/departments/:id" element={<English token={token} />} />
+          <Route path="/departments/:id" element={<History token={token} />} />
+          <Route path="/departments/:id" element={<Latin token={token} />} />
+          <Route path="/departments/:id" element={<Math token={token} />} />
+          <Route path="/departments/:id" element={<Science token={token} />} />
         </Routes>
         <div className='forms'>
           <Routes>

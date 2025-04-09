@@ -10,7 +10,7 @@ const Navbar = ({ token, setToken }) => {
         {!token ? (
           <div className="guest">
             <Link to="/">Home</Link>
-            <Link to="/faculty">Faculty</Link>
+            <Link to="/professors">Professors</Link>
             <Link to="/departments">Departments</Link>
             <Link to="/login">Login</Link>
             <Link to="/register">Register</Link>
@@ -18,7 +18,7 @@ const Navbar = ({ token, setToken }) => {
         ) : (
           <div className="user">
             <Link to="/">Home</Link>
-            <Link to="/faculty">Faculty</Link>
+            <Link to="/professors">Professors</Link>
             <Link to="/departments">Departments</Link>
             <Link to="/departments/english">English</Link>
             <Link to="/departments/history">History</Link>
