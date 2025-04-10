@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import AuthContext from "../context/AuthContext";
 import {
   addDepartment,
   getDepartments,
@@ -8,6 +9,7 @@ import {
 } from "../API/departments";
 
 const Departments = () => {
+  const { refresh, setRefresh } = useContext(AuthContext);
   const [departments, setDepartments] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -15,7 +17,6 @@ const Departments = () => {
   const [image, setImage] = useState("");
   const [searchParam, setSearchParam] = useState("");
   const [showUpdate, setShowUpdate] = useState(false);
-  const [refresh, setRefresh] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {

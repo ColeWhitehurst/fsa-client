@@ -1,15 +1,16 @@
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { addProfessor, getProfessors, getSingleProfessor, updateProfessor } from "../API/professors";
+import AuthContext from "../context/AuthContext";
 
 const Professors = () => {
+  const { refresh, setRefresh } = useContext(AuthContext);
   const [professors, setProfessors] = useState([]);
   const [department, setDepartment] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [image, setImage] = useState("");
   const [showUpdate, setShowUpdate] = useState(false);
-  const [refresh, setRefresh] = useState(false);
   const [searchParam, setSearchParam] = useState("");
   const navigate = useNavigate();
 
