@@ -13,41 +13,29 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+body { 
+background-color: #2d2d2d;
+background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #2d2d2d 10px ), repeating-linear-gradient( #81282855, #812828 );
+background-size: cover;
+background-attachment: fixed;
+min-height: 100vh;
+}
+
 /* ===== NAV BAR ===== */
 .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #444343;
-  padding: 5px 2rem;
-  color: white;
-  flex-wrap: wrap;
+  background-color: #343a40 !important;
 }
 
-.nav-left {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-}
-
-.nav-left a {
-  color: white;
-  text-decoration: none;
+.nav-link {
   font-weight: bold;
+  transition: color 0.3s ease;
 }
 
-.nav-left a:hover {
-  color: rgb(241, 106, 106);
+.nav-link:hover {
+  color: #f16a6a !important;
 }
 
 .logo {
   width: 100px;
   height: auto;
-}
-
-.guest,
-.user {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
 }
