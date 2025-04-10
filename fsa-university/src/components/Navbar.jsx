@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom";
 import fsaLogo from '../assets/fsa-logo.png';
+import { useParams } from "react-router-dom";
 
 const Navbar = () => {
+  const { id } = useParams();
+  console.log(id);
+  
+
   return (
     <nav className="navbar navbar-expand-lg bg-dark">
       <div className="container-fluid d-flex justify-content-between align-items-center">
@@ -19,11 +24,11 @@ const Navbar = () => {
               <Link to="/" className="nav-link text-white">Home</Link>
               <Link to="/professors" className="nav-link text-white">Professors</Link>
               <Link to="/departments" className="nav-link text-white">Departments</Link>
-              <Link to="/departments/1" className="nav-link text-white">English</Link>
-              <Link to="/departments/2" className="nav-link text-white">History</Link>
-              <Link to="/departments/5" className="nav-link text-white">Latin</Link>
-              <Link to="/departments/3" className="nav-link text-white">Math</Link>
-              <Link to="/departments/4" className="nav-link text-white">Science</Link>
+              <Link to={`/departments/${id}`} className="nav-link text-white">English</Link>
+              <Link to="/departments/:id" className="nav-link text-white">History</Link>
+              <Link to="/departments/:id" className="nav-link text-white">Latin</Link>
+              <Link to="/departments/:id" className="nav-link text-white">Math</Link>
+              <Link to="/departments/:id" className="nav-link text-white">Science</Link>
               <Link
                 to="/"
                 className="nav-link text-white"
