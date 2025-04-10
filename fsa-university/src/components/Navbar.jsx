@@ -10,7 +10,7 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg bg-dark">
       <div className="container-fluid d-flex justify-content-between align-items-center">
-        <div className="d-flex flex-wrap gap-4">
+        <div className="d-flex">
           {!localStorage.getItem("token") ? (
             <>
               <Link to="/" className="nav-link text-white">Home</Link>
@@ -42,8 +42,8 @@ const Navbar = () => {
             </>
           )}
         </div>
-
-        <div>
+        
+        <div className="d-flex justify-content-end">
           <img src={fsaLogo} alt="Fullstack Academy Logo" style={{ width: '100px', height: 'auto' }} />
         </div>
       </div>
@@ -52,4 +52,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
