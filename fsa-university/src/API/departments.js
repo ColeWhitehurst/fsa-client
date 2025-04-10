@@ -37,7 +37,7 @@ export const getDepartmentProfessors = async (departmentId) => {
 };
 
 // post /departments
-export const addDepartment = async (departmentId, token) => {
+export const addDepartment = async (name, email, token) => {
   try {
     const response = await fetch(API, {
       method: "POST",
@@ -45,7 +45,7 @@ export const addDepartment = async (departmentId, token) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ departmentId }),
+      body: JSON.stringify({ name, email }),
     });
     const result = await response.json();
     return result;
@@ -55,7 +55,7 @@ export const addDepartment = async (departmentId, token) => {
 };
 
 // put /departments/:id
-export const updateDepartment = async (departmentId, token) => {
+export const updateDepartment = async (name, email, description, image, departmentId, token) => {
   try {
     const response = await fetch(`${API}/${departmentId}`, {
       method: "PUT",
@@ -63,7 +63,7 @@ export const updateDepartment = async (departmentId, token) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ departmentId }),
+      body: JSON.stringify({ name, email, description, image, departmentId }),
     });
     const result = await response.json();
     return result;
