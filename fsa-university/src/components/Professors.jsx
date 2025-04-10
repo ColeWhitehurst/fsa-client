@@ -32,7 +32,7 @@ const Professors = () => {
     const APIResponse = await addProfessor(
       name,
       email,
-      description, 
+      department, 
       image,
       localStorage.getItem("token")
     );
@@ -79,7 +79,7 @@ const Professors = () => {
           </label>
           <label>
             {" "}
-            Description:
+            Department:
             <input
               value={department}
               placeholder="Enter Department"
@@ -99,7 +99,7 @@ const Professors = () => {
             />
             <br />
           </label>
-          <label htmlFor="image"> Image Link:</label>
+          <label htmlFor="image">{" "}Image:</label>
           <input
             type="text"
             id="image"
@@ -116,7 +116,7 @@ const Professors = () => {
           return (
             <div key={professor.id} className="professor">
               <h4>{professor.name}</h4>
-              <h5>{professor.departmentId}</h5>
+              <h5>{professor.department}</h5>
               <h5>{professor.bio}</h5>
               <h5>{professor.email}</h5>
               <img
@@ -143,9 +143,9 @@ const Professors = () => {
               </label>
               <label>
                 {" "}
-                Description:
+                Department:
                 <input
-                  value={description}
+                  value={department}
                   placeholder="Enter Department"
                   onChange={(e) => setDepartment(e.target.value)}
                   required
@@ -163,7 +163,7 @@ const Professors = () => {
                 />
                 <br />
               </label>
-              <label htmlFor="image"> Image Link:</label>
+              <label htmlFor="image"> Image:</label>
               <input
                 type="text"
                 id="image"
@@ -182,7 +182,6 @@ const Professors = () => {
             </div>
           );
         })}
-        ;
       </div>
     </>
   );

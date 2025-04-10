@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import fsaLogo from '../assets/fsa-logo.png';
 
-const Navbar = ({ token, setToken }) => {
+const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg bg-dark">
       <div className="container-fluid d-flex justify-content-between align-items-center">
         <div className="d-flex flex-wrap gap-4">
-          {!token ? (
+          {!localStorage.getItem("token") ? (
             <>
               <Link to="/" className="nav-link text-white">Home</Link>
               <Link to="/professors" className="nav-link text-white">Professors</Link>
@@ -28,7 +28,7 @@ const Navbar = ({ token, setToken }) => {
                 to="/"
                 className="nav-link text-white"
                 onClick={() => {
-                  setToken(null);
+                  localStorage.removeItem("token");
                   window.location.reload();
                 }}
               >
