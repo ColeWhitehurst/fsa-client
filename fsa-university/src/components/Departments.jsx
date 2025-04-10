@@ -154,7 +154,7 @@ const Departments = () => {
                 Email:
                 <input
                   value={email}
-                  placeholder="Enter Name"
+                  placeholder="Enter Email"
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />

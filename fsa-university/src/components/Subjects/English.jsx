@@ -79,7 +79,7 @@ const English = ({ token }) => {
               className="singular"
             />
             <br />
-            {localStorage.getItems("token") && (
+            {localStorage.getItem("token") && (
               <div>
                 <button
                   onClick={() =>
