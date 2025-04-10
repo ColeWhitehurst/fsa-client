@@ -11,7 +11,7 @@ const Register = ({ setToken }) => {
     e.preventDefault();
     try {
       const response = await fetch(
-        "https://localhost:3000/api/register",
+        "http://localhost:3000/api/register",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -20,6 +20,7 @@ const Register = ({ setToken }) => {
       );
       const result = await response.json();
       setToken(result.token);
+      localStorage.setItem("token", result.token);
       setUsername("");
       setPassword("");
       setFirstName("");
@@ -59,7 +60,7 @@ const Register = ({ setToken }) => {
           <input
             value={username}
             placeholder="Enter Your Username"
-            onChange={(e) => setusername(e.target.value)}
+            onChange={(e) => setUsername(e.target.value)}
             required
           />
           <br />

@@ -4,6 +4,7 @@ import {
   getSingleDepartment,
   getDepartmentProfessors,
   removeDepartmentProfessor,
+  removeDepartment
 } from "../../API/departments";
 
 const English = ({ token }) => {
@@ -35,19 +36,25 @@ const English = ({ token }) => {
 
   const handleRemove = async (professorId) => {
     try {
-      const response = await removeDepartmentProfessor(professorId, token);
+      const response = await removeDepartmentProfessor(
+        professorId,
+        localStorage.getItem("token")
+      );
       setProfessors(response);
     } catch (err) {
-      setError(error.message);
+      setError(err.message);
     }
   };
 
   const handleDelete = async (id) => {
     try {
-      const response = await removeDepartment(id);
+      const response = await removeDepartment(
+        id,
+        localStorage.getItem("token")
+      );
       setDepartment(response);
       navigate("/departments");
-    } catch (err) {
+    } catch (error) {
       setError(error.message);
     }
   };
@@ -72,10 +79,12 @@ const English = ({ token }) => {
               className="singular"
             />
             <br />
-            {token && (
+            {localStorage.getItem("token") && (
               <div>
                 <button
-                  onClick={() => handleDelete(department.id, token)}
+                  onClick={() =>
+                    handleDelete(department.id, localStorage.getItem("token"))
+                  }
                   className="removeDpmt"
                 >
                   Remove Department
@@ -88,19 +97,25 @@ const English = ({ token }) => {
           Department List
         </button>
         <br />
-        {professors && professors.map((idx) => {
-          return (
-            <div key={idx.id} className="prof">
-              <h4>{idx.name}</h4>
-              <h5>{idx.email}</h5>
-              <img src={idx.image} alt={idx.name} className="profPics" /><br />
-              <button
-                onClick={() => handleRemove(idx.id, token)}
-                className="removeProf"
-              >Remove Professor from Department</button>
-            </div>
-          );
-        })}
+        {professors &&
+          professors.map((idx) => {
+            return (
+              <div key={idx.id} className="prof">
+                <h4>{idx.name}</h4>
+                <h5>{idx.email}</h5>
+                <img src={idx.image} alt={idx.name} className="profPics" />
+                <br />
+                <button
+                  onClick={() =>
+                    handleRemove(idx.id, localStorage.getItem("token"))
+                  }
+                  className="removeProf"
+                >
+                  Remove Professor from Department
+                </button>
+              </div>
+            );
+          })}
       </div>
     </>
   );

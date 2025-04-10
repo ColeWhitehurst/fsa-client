@@ -21,7 +21,7 @@ function App() {
     <>
       <div className="nav">
         <div>
-          <Navbar />
+          <Navbar token={token} setToken={setToken} />
         </div>
       </div>
       <div className="container">
