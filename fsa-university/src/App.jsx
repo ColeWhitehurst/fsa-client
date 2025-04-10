@@ -7,11 +7,7 @@ import Navbar from "./components/Navbar";
 import Account from "./components/Account";
 import Professors from "./components/Professors";
 import Departments from "./components/Departments";
-import English from "./components/Subjects/English";
-import History from "./components/Subjects/History";
-import Latin from "./components/Subjects/Latin";
-import Math from "./components/Subjects/Math";
-import Science from "./components/Subjects/Science";
+import SingleSubject from './components/SingleSubject'
 import Login from "./components/Login";
 import Register from "./components/Register";
 
@@ -32,11 +28,7 @@ function App() {
           <Route path="/account" element={<Account token={token} />} />
           <Route path="/professors" element={<Professors />} />
           <Route path="/departments" element={<Departments />} />
-          <Route path="/departments/:id" element={<English token={token} />} />
-          <Route path="/departments/:id" element={<History token={token} />} />
-          <Route path="/departments/:id" element={<Latin token={token} />} />
-          <Route path="/departments/:id" element={<Math token={token} />} />
-          <Route path="/departments/:id" element={<Science token={token} />} />
+          <Route path="/departments/:id" element={<SingleSubject token={token} />} />
         </Routes>
         <div className='forms'>
           <Routes>

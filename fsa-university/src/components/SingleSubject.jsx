@@ -5,9 +5,9 @@ import {
   getDepartmentProfessors,
   removeDepartmentProfessor,
   removeDepartment
-} from "../../API/departments";
+} from "../API/departments";
 
-const Latin = ({ token }) => {
+const SingleSubject = ({ token }) => {
   const [department, setDepartment] = useState(null);
   const [professors, setProfessors] = useState(null);
   const [error, setError] = useState(null);
@@ -15,7 +15,7 @@ const Latin = ({ token }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    async function getLatin() {
+    async function getSubject() {
       const response = await getSingleDepartment(id);
       return response;
     }
@@ -25,7 +25,7 @@ const Latin = ({ token }) => {
     }
 
     async function getDepartmentInfo() {
-      const responseDpmt = await getLatin(id);
+      const responseDpmt = await getSubject(id);
       const responseProf = await getProfessorsByDepartment(id);
       setDepartment(responseDpmt);
       setProfessors(responseProf);
@@ -79,7 +79,7 @@ const Latin = ({ token }) => {
               className="singular"
             />
             <br />
-            {localStorage.getItems("token") && (
+            {localStorage.getItem("token") && (
               <div>
                 <button
                   onClick={() =>
@@ -121,4 +121,4 @@ const Latin = ({ token }) => {
   );
 };
 
-export default Latin;
+export default SingleSubject;

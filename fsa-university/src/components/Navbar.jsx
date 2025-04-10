@@ -24,11 +24,6 @@ const Navbar = () => {
               <Link to="/" className="nav-link text-white">Home</Link>
               <Link to="/professors" className="nav-link text-white">Professors</Link>
               <Link to="/departments" className="nav-link text-white">Departments</Link>
-              <Link to={`/departments/${id}`} className="nav-link text-white">English</Link>
-              <Link to="/departments/:id" className="nav-link text-white">History</Link>
-              <Link to="/departments/:id" className="nav-link text-white">Latin</Link>
-              <Link to="/departments/:id" className="nav-link text-white">Math</Link>
-              <Link to="/departments/:id" className="nav-link text-white">Science</Link>
               <Link
                 to="/"
                 className="nav-link text-white"
