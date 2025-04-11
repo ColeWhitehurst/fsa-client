@@ -23,7 +23,8 @@ const Navbar = () => {
               <Link to="/" className="nav-link text-white">Home</Link>
               <Link to="/professors" className="nav-link text-white">Professors</Link>
               <Link to="/departments" className="nav-link text-white">Departments</Link>
-              <Link
+              <Link to="/updates" className="nav-link text-white">Update</Link>
+              <Link 
                 to="/"
                 className="nav-link text-white"
                 onClick={() => {
