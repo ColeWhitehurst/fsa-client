@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 
 const Navbar = () => {
   const { id } = useParams();
-  console.log(id);
   
 
   return (

@@ -4,7 +4,7 @@ import { createContext, useState, useContext } from 'react';
 const AuthContext = createContext();
 
 // Custom hook to use the AuthContext
-// export const useAuth = () => useContext(AuthContext);
+
 
 // AuthProvider Component
 export const AuthProvider = ({ children }) => {
@@ -16,5 +16,7 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
+export const useAuth = () => useContext(AuthContext);
 
 export default AuthContext;

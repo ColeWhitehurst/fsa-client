@@ -27,6 +27,7 @@ function App() {
           <Route path="/account" element={<Account token={token} />} />
           <Route path="/professors" element={<Professors />} />
           <Route path="/departments" element={<Departments />} />
+          <Route path="/updates" element={<Change token={token}/>} />
           <Route path="/departments/:id" element={<SingleSubject token={token} />} />
         </Routes>
         <div className='forms'>

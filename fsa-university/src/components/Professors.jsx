@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { addProfessor, getProfessors, getSingleProfessor, updateProfessor } from "../API/professors";
-import AuthContext from "../context/AuthContext";
+import {useAuth} from "../context/AuthContext";
 
 const Professors = () => {
-  const { refresh, setRefresh } = useContext(AuthContext);
+  const { refresh, setRefresh } = useAuth();
   const [professors, setProfessors] = useState([]);
   const [department, setDepartment] = useState("");
   const [name, setName] = useState("");
@@ -20,7 +20,7 @@ const Professors = () => {
       setProfessors(professors);
     }
     renderProfessors();
-  }, []);
+  }, [refresh]);
 
   const professorsToDisplay = searchParam
     ? professors.filter((professor) =>
@@ -117,7 +117,7 @@ const Professors = () => {
           return (
             <div key={professor.id} className="professor">
               <h4>{professor.name}</h4>
-              <h5>{professor.department}</h5>
+              <h5>{professor.department.name}</h5>
               <h5>{professor.bio}</h5>
               <h5>{professor.email}</h5>
               <img
@@ -171,7 +171,7 @@ const Professors = () => {
                 value={image}
                 placeholder="Enter Image Link"
                 onChange={(e) => setImage(e.target.value)}
-              ></input>
+              ></input><br />
               <button onClick={() => handleChange(name, email, bio, image, department, professor.id)} >
                 Update Professor
               </button>
