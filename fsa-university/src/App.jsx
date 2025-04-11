@@ -9,6 +9,7 @@ import Departments from "./components/Departments";
 import SingleSubject from './components/SingleSubject'
 import Login from "./components/Login";
 import Register from "./components/Register";
+import Change from "./components/Change";
 
 function App() {
   const [token, setToken] = useState(null);
