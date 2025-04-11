@@ -34,7 +34,7 @@ export const getProfessorDepartment = async (professorId) => {
 };
 
 // post /professors
-export const addProfessor = async (name, email, bio, department, image, professorId, token) => {
+export const addProfessor = async (name, email, image, bio, department, professorId, token) => {
   try {
     const response = await fetch(API, {
       method: "POST",
@@ -42,7 +42,7 @@ export const addProfessor = async (name, email, bio, department, image, professo
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ name, email, bio, department, image, professorId }),
+      body: JSON.stringify({ name, email, image, bio, department, professorId }),
     });
     const result = await response.json();
     return result;
@@ -52,7 +52,7 @@ export const addProfessor = async (name, email, bio, department, image, professo
 };
 
 // put /professors/:id
-export const updateProfessor = async (name, email, bio, department, image, professorId, token) => {
+export const updateProfessor = async (name, email, bio, image, department, professorId, token) => {
   try {
     const response = await fetch(`${API}/${professorId}`, {
       method: "PUT",
@@ -60,7 +60,7 @@ export const updateProfessor = async (name, email, bio, department, image, profe
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ name, email, bio, department, image, professorId }),
+      body: JSON.stringify({ name, email, bio, image, department, professorId }),
     });
     const result = await response.json();
     return result;

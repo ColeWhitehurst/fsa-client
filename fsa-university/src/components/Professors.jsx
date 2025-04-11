@@ -128,48 +128,6 @@ const Professors = () => {
                   <p className="card-text">{prof.department.name}</p>
                   <p className="card-text">{prof.email}</p>
                   <p className="card-text">{prof.bio}</p>
-                  <button
-                    onClick={() => setShowUpdate(!showUpdate)}
-                    className="btn btn-outline-light mt-2"
-                  >
-                    Update
-                  </button>
-                  {showUpdate && (
-                    <div className="mt-3">
-                      <input
-                        className="form-control mb-2"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder="Update Name"
-                      />
-                      <input
-                        className="form-control mb-2"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Update Email"
-                      />
-                      <input
-                        className="form-control mb-2"
-                        value={department}
-                        onChange={(e) => setDepartment(e.target.value)}
-                        placeholder="Update Department"
-                      />
-                      <input
-                        className="form-control mb-2"
-                        value={image}
-                        onChange={(e) => setImage(e.target.value)}
-                        placeholder="Update Image"
-                      />
-                      <button
-                        className="btn btn-danger w-100"
-                        onClick={() =>
-                          handleChange(name, email, bio, image, department, prof.id)
-                        }
-                      >
-                        Confirm Update
-                      </button>
-                    </div>
-                  )}
                 </div>
               </div>
             </div>

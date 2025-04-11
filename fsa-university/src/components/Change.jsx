@@ -15,7 +15,8 @@ const Change = () => {
   const [description, setDescription] = useState("");
   const [email, setEmail] = useState("");
   const [image, setImage] = useState("");
-  const [showUpdate, setShowUpdate] = useState(false);
+  const [showProfUpdate, setShowProfUpdate] = useState(false);
+  const [showDeptUpdate, setShowDeptUpdate] = useState(false);
   const navigate = useNavigate();
 
   async function handleProfessorAdd(e) {
@@ -72,8 +73,8 @@ const Change = () => {
                 onChange={(e) => setName(e.target.value)}
                 required
               />
-              <br />
             </label>
+            <br />
             <label>
               Department:
               <input
@@ -82,8 +83,8 @@ const Change = () => {
                 onChange={(e) => setDepartment(e.target.value)}
                 required
               />
-              <br />
             </label>
+            <br />
             <label>
               Email:
               <input
@@ -92,20 +93,21 @@ const Change = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
-              <br />
             </label>
-            <label htmlFor="image">Image:</label>
-            <input
-              type="text"
-              id="image"
-              value={image}
-              placeholder="Enter Image Link"
-              onChange={(e) => setImage(e.target.value)}
-            />
+            <br />
+            <label>
+              Image:
+              <input
+                type="text"
+                value={image}
+                placeholder="Enter Image Link"
+                onChange={(e) => setImage(e.target.value)}
+              />
+            </label>
             <br />
             <button type="submit">Add Professor</button>
           </form>
-
+  
           {/* Add Department Form */}
           <form onSubmit={handleDepartmentAdd} className="addDpmt">
             <label>
@@ -116,8 +118,8 @@ const Change = () => {
                 onChange={(e) => setName(e.target.value)}
                 required
               />
-              <br />
             </label>
+            <br />
             <label>
               Description:
               <input
@@ -126,8 +128,8 @@ const Change = () => {
                 onChange={(e) => setDescription(e.target.value)}
                 required
               />
-              <br />
             </label>
+            <br />
             <label>
               Email:
               <input
@@ -136,105 +138,59 @@ const Change = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
-              <br />
             </label>
-            <label htmlFor="image">Image Link:</label>
-            <input
-              type="text"
-              id="image"
-              value={image}
-              placeholder="Enter Image Link"
-              onChange={(e) => setImage(e.target.value)}
-            />
+            <br />
+            <label>
+              Image Link:
+              <input
+                type="text"
+                value={image}
+                placeholder="Enter Image Link"
+                onChange={(e) => setImage(e.target.value)}
+              />
+            </label>
             <br />
             <button type="submit">Add Department</button>
           </form>
-
-          {/* Update Department Form */}
+  
+          {/* Toggle Buttons */}
           <br />
-          <button onClick={() => setShowUpdate(!showUpdate)}>
-            Update Department Form
+          <button onClick={() => setShowDeptUpdate((prev) => !prev)}>
+            Toggle Update Department Form
           </button>
-
-          {showUpdate && (
-            <div>
-              <form>
-                <label>
-                  Name:
-                  <input
-                    value={name}
-                    placeholder="Enter Department Name"
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                  />
-                  <br />
-                </label>
-                <label>
-                  Description:
-                  <input
-                    value={description}
-                    placeholder="Enter Description"
-                    onChange={(e) => setDescription(e.target.value)}
-                    required
-                  />
-                  <br />
-                </label>
-                <label>
-                  Email:
-                  <input
-                    value={email}
-                    placeholder="Enter Email"
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                  <br />
-                </label>
-                <label htmlFor="image">Image Link:</label>
-                <input
-                  type="text"
-                  id="image"
-                  value={image}
-                  placeholder="Enter Image Link"
-                  onChange={(e) => setImage(e.target.value)}
-                />
-                <br />
-                <button
-                  onClick={() =>
-                    handleDepartmentChange(name, email, description, image, department)
-                  }
-                >
-                  Update Department
-                </button>
-              </form>
-              <button onClick={() => setShowUpdate(!showUpdate)} >
-                Update Professor Form
-              </button>
-              {showUpdate && (
-                <div>
-                <label>
-                {" "}
+          <button onClick={() => setShowProfUpdate((prev) => !prev)}>
+            Toggle Update Professor Form
+          </button>
+  
+          {/* Update Department Form */}
+          {showDeptUpdate && (
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleDepartmentChange(name, email, description, image, department);
+              }}
+            >
+              <label>
                 Name:
                 <input
                   value={name}
-                  placeholder="Enter Name"
+                  placeholder="Enter Department Name"
                   onChange={(e) => setName(e.target.value)}
                   required
                 />
-                <br />
               </label>
+              <br />
               <label>
-                {" "}
-                Department:
+                Description:
                 <input
-                  value={department}
-                  placeholder="Enter Department"
-                  onChange={(e) => setDepartment(e.target.value)}
+                  value={description}
+                  placeholder="Enter Description"
+                  onChange={(e) => setDescription(e.target.value)}
                   required
                 />
-                <br />
               </label>
+              <br />
               <label>
-                {" "}
                 Email:
                 <input
                   value={email}
@@ -242,28 +198,77 @@ const Change = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
-                <br />
               </label>
-              <label htmlFor="image"> Image:</label>
-              <input
-                type="text"
-                id="image"
-                value={image}
-                placeholder="Enter Image Link"
-                onChange={(e) => setImage(e.target.value)}
-              ></input><br />
-              <button onClick={() => handleProfessorChange(name, email, bio, image, department, professors.id)} >
-                Update Professor
-              </button>
-              </div>
-              )}
-            </div>
+              <br />
+              <label>
+                Image Link:
+                <input
+                  type="text"
+                  value={image}
+                  placeholder="Enter Image Link"
+                  onChange={(e) => setImage(e.target.value)}
+                />
+              </label>
+              <br />
+              <button type="submit">Update Department</button>
+            </form>
+          )}
+  
+          {/* Update Professor Form */}
+          {showProfUpdate && (
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleProfessorChange(name, email, bio, image, department, professors?.id);
+              }}
+            >
+              <label>
+                Name:
+                <input
+                  value={name}
+                  placeholder="Enter Name"
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                />
+              </label>
+              <br />
+              <label>
+                Department:
+                <input
+                  value={department}
+                  placeholder="Enter Department"
+                  onChange={(e) => setDepartment(e.target.value)}
+                  required
+                />
+              </label>
+              <br />
+              <label>
+                Email:
+                <input
+                  value={email}
+                  placeholder="Enter Email"
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </label>
+              <br />
+              <label>
+                Image:
+                <input
+                  type="text"
+                  value={image}
+                  placeholder="Enter Image Link"
+                  onChange={(e) => setImage(e.target.value)}
+                />
+              </label>
+              <br />
+              <button type="submit">Update Professor</button>
+            </form>
           )}
         </div>
       )}
     </>
   );
 };
-
 
 export default Change;

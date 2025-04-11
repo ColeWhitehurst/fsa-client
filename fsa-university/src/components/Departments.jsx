@@ -123,57 +123,6 @@ const Departments = () => {
                 className="dpmtPics"
               />
               <br />
-              <button onClick={() => setShowUpdate(!showUpdate)} >
-                Update Department Form
-              </button>
-              {showUpdate && (
-                <div>
-                <label>
-                {" "}
-                Name:
-                <input
-                  value={name}
-                  placeholder="Enter Name"
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                />
-                <br />
-              </label>
-              <label>
-                {" "}
-                Description:
-                <input
-                  value={description}
-                  placeholder="Enter Description"
-                  onChange={(e) => setDescription(e.target.value)}
-                  required
-                />
-                <br />
-              </label>
-              <label>
-                {" "}
-                Email:
-                <input
-                  value={email}
-                  placeholder="Enter Email"
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-                <br />
-              </label>
-              <label htmlFor="image"> Image Link:</label>
-              <input
-                type="text"
-                id="image"
-                value={image}
-                placeholder="Enter Image Link"
-                onChange={(e) => setImage(e.target.value)}
-              ></input>
-              <button onClick={() => handleChange(name, email, description, image, department.id)} >
-                Update Department
-              </button>
-              </div>
-              )}
               <br />
               <button
                 className="details"

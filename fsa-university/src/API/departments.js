@@ -37,7 +37,7 @@ export const getDepartmentProfessors = async (departmentId) => {
 };
 
 // post /departments
-export const addDepartment = async (name, email, token) => {
+export const addDepartment = async (name, email, description, image, token) => {
   try {
     const response = await fetch(API, {
       method: "POST",
@@ -45,7 +45,7 @@ export const addDepartment = async (name, email, token) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ name, email }),
+      body: JSON.stringify({ name, email, description, image }),
     });
     const result = await response.json();
     return result;
