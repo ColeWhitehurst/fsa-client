@@ -54,137 +54,129 @@ const Professors = () => {
   }
 
   return (
-    <>
-      <div className="search">
-        <label>
-          Search:{" "}
+    <div className="professor-container py-5">
+      <div className="container">
+        <div className="mb-4">
           <input
             type="text"
-            placeholder="Search"
+            className="form-control bg-dark text-light border-secondary"
+            placeholder="Search professors"
             onChange={(e) => setSearchParam(e.target.value.toLowerCase())}
           />
-        </label>
-      </div>
-      {localStorage.getItem("token") && (
-        <form onSubmit={handleAdd} className="addProf">
-          <label>
-            {" "}
-            Name:
-            <input
-              value={name}
-              placeholder="Enter Name"
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-            <br />
-          </label>
-          <label>
-            {" "}
-            Department:
-            <input
-              value={department}
-              placeholder="Enter Department"
-              onChange={(e) => setDepartment(e.target.value)}
-              required
-            />
-            <br />
-          </label>
-          <label>
-            {" "}
-            Email:
-            <input
-              value={email}
-              placeholder="Enter Name"
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <br />
-          </label>
-          <label htmlFor="image">{" "}Image:</label>
-          <input
-            type="text"
-            id="image"
-            value={image}
-            placeholder="Enter Image Link"
-            onChange={(e) => setImage(e.target.value)}
-          ></input>
-          <br />
-          <button type="submit">Add Professor</button>{" "}
-        </form>
-      )}
-      <div className="allDepts">
-        {professorsToDisplay.map((professor) => {
-          return (
-            <div key={professor.id} className="professor">
-              <h4>{professor.name}</h4>
-              <h5>{professor.department.name}</h5>
-              <h5>{professor.bio}</h5>
-              <h5>{professor.email}</h5>
-              <img
-                src={professor.image}
-                alt={professor.name}
-                className="profPics"
-              />
-              <br />
-              <button onClick={() => setShowUpdate(!showUpdate)} >
-                Update Professor Form
-              </button>
-              {showUpdate && (
-                <div>
-                <label>
-                {" "}
-                Name:
+        </div>
+
+        {localStorage.getItem("token") && (
+          <form onSubmit={handleAdd} className="p-4 rounded mb-4">
+            <h4 className="text-light mb-3">Add New Professor</h4>
+            <div className="row g-3">
+              <div className="col-md-6">
                 <input
+                  className="form-control"
                   value={name}
-                  placeholder="Enter Name"
+                  placeholder="Name"
                   onChange={(e) => setName(e.target.value)}
                   required
                 />
-                <br />
-              </label>
-              <label>
-                {" "}
-                Department:
+              </div>
+              <div className="col-md-6">
                 <input
+                  className="form-control"
                   value={department}
-                  placeholder="Enter Department"
+                  placeholder="Department"
                   onChange={(e) => setDepartment(e.target.value)}
                   required
                 />
-                <br />
-              </label>
-              <label>
-                {" "}
-                Email:
+              </div>
+              <div className="col-md-6">
                 <input
+                  className="form-control"
                   value={email}
-                  placeholder="Enter Email"
+                  placeholder="Email"
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
-                <br />
-              </label>
-              <label htmlFor="image"> Image:</label>
-              <input
-                type="text"
-                id="image"
-                value={image}
-                placeholder="Enter Image Link"
-                onChange={(e) => setImage(e.target.value)}
-              ></input><br />
-              <button onClick={() => handleChange(name, email, bio, image, department, professor.id)} >
-                Update Professor
-              </button>
               </div>
-              )}
-              <br />
-              <br />
-              <br />
+              <div className="col-md-6">
+                <input
+                  className="form-control"
+                  value={image}
+                  placeholder="Image URL"
+                  onChange={(e) => setImage(e.target.value)}
+                />
+              </div>
+              <div className="col-12">
+                <button type="submit" className="btn btn-danger w-100">
+                  Add Professor
+                </button>
+              </div>
             </div>
-          );
-        })}
+          </form>
+        )}
+
+        <div className="row">
+          {professorsToDisplay.map((prof) => (
+            <div key={prof.id} className="col-md-6 col-lg-4 mb-4">
+              <div className="card bg-dark text-light h-100 shadow professor-card">
+                <img
+                  src={prof.image}
+                  alt={prof.name}
+                  className="card-img-top"
+                  style={{ height: "200px", objectFit: "cover" }}
+                />
+                <div className="card-body">
+                  <h5 className="card-title">{prof.name}</h5>
+                  <p className="card-text">{prof.department.name}</p>
+                  <p className="card-text">{prof.email}</p>
+                  <p className="card-text">{prof.bio}</p>
+                  <button
+                    onClick={() => setShowUpdate(!showUpdate)}
+                    className="btn btn-outline-light mt-2"
+                  >
+                    Update
+                  </button>
+                  {showUpdate && (
+                    <div className="mt-3">
+                      <input
+                        className="form-control mb-2"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Update Name"
+                      />
+                      <input
+                        className="form-control mb-2"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Update Email"
+                      />
+                      <input
+                        className="form-control mb-2"
+                        value={department}
+                        onChange={(e) => setDepartment(e.target.value)}
+                        placeholder="Update Department"
+                      />
+                      <input
+                        className="form-control mb-2"
+                        value={image}
+                        onChange={(e) => setImage(e.target.value)}
+                        placeholder="Update Image"
+                      />
+                      <button
+                        className="btn btn-danger w-100"
+                        onClick={() =>
+                          handleChange(name, email, bio, image, department, prof.id)
+                        }
+                      >
+                        Confirm Update
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 

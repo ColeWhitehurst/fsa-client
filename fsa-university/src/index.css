@@ -116,3 +116,48 @@ button:hover {
   border-color: #ac2925;
 }
 
+/* ===== PROFESSORS ===== */
+
+.professor-container {
+  min-height: 100vh;
+}
+
+.professor-card {
+  border: 1px solid #333;
+  transition: transform 0.2s;
+}
+
+.professor-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0px 4px 12px rgba(255, 0, 0, 0.2);
+}
+
+input.form-control,
+textarea.form-control {
+  background-color: #2a2a2a;
+  color: #fff;
+  border: 1px solid #444;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #cfcbcb !important;
+  opacity: 1;
+}
+
+input.form-control:focus,
+textarea.form-control:focus {
+  background-color: #333;
+  color: #fdfdfd;
+  border-color: #dc3545;
+}
+
+button.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+button.btn-danger:hover {
+  background-color: #bb2d3b;
+  border-color: #a71d2a;
+}
