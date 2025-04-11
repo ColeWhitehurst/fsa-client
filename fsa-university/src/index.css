@@ -161,3 +161,16 @@ button.btn-danger:hover {
   background-color: #bb2d3b;
   border-color: #a71d2a;
 }
+
+/* ===== DEPT ===== */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px rgba(220, 53, 69, 0.25);
+  transition: all 0.3s ease;
+}
+/* still dept, just the single subject */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}

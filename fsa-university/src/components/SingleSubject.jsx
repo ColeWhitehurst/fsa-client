@@ -4,7 +4,7 @@ import {
   getSingleDepartment,
   getDepartmentProfessors,
   removeDepartmentProfessor,
-  removeDepartment
+  removeDepartment,
 } from "../API/departments";
 
 const SingleSubject = ({ token }) => {
@@ -60,64 +60,63 @@ const SingleSubject = ({ token }) => {
   };
 
   return (
-    <>
-      <div>
-        {department && (
-          <div key={department.id} className="singleDepartment">
-            <p>
-              <b>Department:</b> {department.name}
-            </p>
-            <p>
-              <b>Author:</b> {department.professors}
-            </p>
-            <p>
-              <b>Description:</b> {department.description}
+    <div className="container my-5 text-light">
+      {department && (
+        <div className="card bg-dark text-light mb-4 shadow-lg">
+          <div className="card-body text-center">
+            <h3 className="card-title">{department.name}</h3>
+            <p className="card-text">
+              <strong>Description:</strong> {department.description}
             </p>
             <img
               src={department.image}
               alt={department.title}
-              className="singular"
-            />
-            <br />
+              className="img-fluid rounded mb-3"
+              style={{ maxHeight: "250px", objectFit: "cover" }}/>
             {localStorage.getItem("token") && (
-              <div>
-                <button
-                  onClick={() =>
-                    handleDelete(department.id, localStorage.getItem("token"))
-                  }
-                  className="removeDpmt"
-                >
-                  Remove Department
-                </button>
-              </div>
+              <button
+                onClick={() =>
+                  handleDelete(department.id, localStorage.getItem("token"))}
+                className="btn btn-outline-danger">
+                Remove Department
+              </button>
             )}
           </div>
-        )}
-        <button className="back" onClick={() => navigate("/departments")}>
-          Department List
+        </div>
+      )}
+
+      <div className="mb-3">
+        <button className="btn btn-secondary" onClick={() => navigate("/departments")}>
+          Back to Department List
         </button>
-        <br />
-        {professors &&
-          professors.map((idx) => {
-            return (
-              <div key={idx.id} className="prof">
-                <h4>{idx.name}</h4>
-                <h5>{idx.email}</h5>
-                <img src={idx.image} alt={idx.name} className="profPics" />
-                <br />
-                <button
-                  onClick={() =>
-                    handleRemove(idx.id, localStorage.getItem("token"))
-                  }
-                  className="removeProf"
-                >
-                  Remove Professor from Department
-                </button>
-              </div>
-            );
-          })}
       </div>
-    </>
+
+      <div className="row">
+        {professors &&
+          professors.map((prof) => (
+            <div key={prof.id} className="col-md-4 mb-4">
+              <div className="card bg-dark text-light h-100 shadow-sm">
+                <div className="card-body text-center">
+                  <h5 className="card-title">{prof.name}</h5>
+                  <p className="card-text">{prof.email}</p>
+                  <img
+                    src={prof.image}
+                    alt={prof.name}
+                    className="img-fluid rounded mb-3"
+                    style={{ maxHeight: "200px", objectFit: "cover" }}/>
+                  {localStorage.getItem("token") && (
+                    <button
+                      onClick={() => handleRemove(prof.id)}
+                      className="btn btn-outline-danger">
+                      Remove from Department
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+      </div>
+    </div>
   );
 };
 
