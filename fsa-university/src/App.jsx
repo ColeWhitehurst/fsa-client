@@ -10,6 +10,7 @@ import SingleSubject from './components/SingleSubject'
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Change from "./components/Change";
+import ChatSidebar from "./components/chat/ChatSidebar";
 
 function App() {
   const [token, setToken] = useState(null);
@@ -42,6 +43,7 @@ function App() {
               element={<Register token={token} setToken={setToken} />}
             />
           </Routes>
+          <ChatSidebar />
         </div>
       </div>
     </>
