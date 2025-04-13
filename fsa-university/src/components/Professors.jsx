@@ -1,18 +1,21 @@
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect, useContext } from "react";
-import { addProfessor, getProfessors, getSingleProfessor, updateProfessor } from "../API/professors";
-import {useAuth} from "../context/AuthContext";
+import { useState, useEffect } from "react";
+import {
+  addProfessor,
+  getProfessors,
+} from "../API/professors";
+import { getDepartments } from "../API/departments";
+import { useAuth } from "../context/AuthContext";
 
 const Professors = () => {
   const { refresh, setRefresh } = useAuth();
   const [professors, setProfessors] = useState([]);
-  const [department, setDepartment] = useState("");
+  const [departments, setDepartments] = useState([]);
+  const [departmentId, setDepartmentId] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [image, setImage] = useState("");
-  const [showUpdate, setShowUpdate] = useState(false);
+  const [bio, setBio] = useState("");
   const [searchParam, setSearchParam] = useState("");
-  const navigate = useNavigate();
 
   useEffect(() => {
     async function renderProfessors() {
@@ -21,6 +24,14 @@ const Professors = () => {
     }
     renderProfessors();
   }, [refresh]);
+  
+  useEffect(() => {
+    async function fetchDepartments() {
+      const deptData = await getDepartments();
+      setDepartments(deptData);
+    }
+    fetchDepartments();
+  }, []);
 
   const professorsToDisplay = searchParam
     ? professors.filter((professor) =>
@@ -30,28 +41,21 @@ const Professors = () => {
 
   async function handleAdd(e) {
     e.preventDefault();
+    try {
     const APIResponse = await addProfessor(
       name,
       email,
-      department, 
       image,
-      localStorage.getItem("token")
-    );
-    setProfessors(APIResponse);
-  }
-
-  async function handleChange(name, email, bio, image, department) {
-    const APIResponse = await updateProfessor(
-      name,
-      email,
       bio,
-      image,
-      department,
+      Number(departmentId),
       localStorage.getItem("token")
     );
-    setShowUpdate(false);
+    setProfessors((prev) => [...prev, APIResponse]);
     setRefresh(!refresh);
+  } catch (err) {
+    console.error("handleAdd error:", err);
   }
+  };
 
   return (
     <div className="professor-container py-5">
@@ -79,13 +83,23 @@ const Professors = () => {
                 />
               </div>
               <div className="col-md-6">
-                <input
-                  className="form-control"
-                  value={department}
-                  placeholder="Department"
-                  onChange={(e) => setDepartment(e.target.value)}
+                <select
+                  className="form-select"
+                  value={departmentId}
+                  onChange={(e) => setDepartmentId(e.target.value)}
                   required
-                />
+                >
+                  <option value="">Select Department</option>
+                  {Array.isArray(departments) && departments.length > 0 ? (
+                    departments.map((dept) => (
+                      <option key={dept.id} value={dept.id}>
+                        {dept.name}
+                      </option>
+                    ))
+                  ) : (
+                    <option disabled>Loading departments...</option>
+                  )}
+                </select>
               </div>
               <div className="col-md-6">
                 <input
@@ -101,7 +115,7 @@ const Professors = () => {
                   className="form-control"
                   value={image}
                   placeholder="Image URL"
-                  onChange={(e) => setImage(e.target.value)}
+                  onChange={(e) => setImage(e.target.value) || 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.rushu.rush.edu%2Ffaculty%2Fchristine-borgstrom-dnp-aprn-fnp-bc-pnp-c&psig=AOvVaw2qxsPmSUiCnm76gcuk6P74&ust=1744651935680000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCNjStIrF1YwDFQAAAAAdAAAAABAE'}
                 />
               </div>
               <div className="col-12">
@@ -112,7 +126,6 @@ const Professors = () => {
             </div>
           </form>
         )}
-
         <div className="row">
           {professorsToDisplay.map((prof) => (
             <div key={prof.id} className="col-md-6 col-lg-4 mb-4">
@@ -125,7 +138,9 @@ const Professors = () => {
                 />
                 <div className="card-body">
                   <h5 className="card-title">{prof.name}</h5>
-                  <p className="card-text">{prof.department.name}</p>
+                  <p className="card-text">
+                    {prof.department ? prof.department.name : "No department"}
+                  </p>
                   <p className="card-text">{prof.email}</p>
                   <p className="card-text">{prof.bio}</p>
                 </div>

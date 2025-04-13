@@ -1,30 +1,69 @@
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect, useContext } from "react";
-import {useAuth} from "../context/AuthContext";
-import {
-  addDepartment,
-  updateDepartment,
-} from "../API/departments";
-import { addProfessor, updateProfessor } from "../API/professors";
+import { useState, useEffect } from "react";
+import { addDepartment, updateDepartment, getDepartments } from "../API/departments";
+import { addProfessor, updateProfessor, getProfessors } from "../API/professors";
 
 const Change = () => {
   const [departments, setDepartments] = useState([]);
   const [department, setDepartment] = useState("");
+  const [departmentId, setDepartmentId] = useState("");
   const [professors, setProfessors] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [email, setEmail] = useState("");
+  const [bio, setBio] = useState("");
   const [image, setImage] = useState("");
+  const [selectedProfessorId, setSelectedProfessorId] = useState("");
+  const [selectedDepartmentId, setSelectedDepartmentId] = useState("");
   const [showProfUpdate, setShowProfUpdate] = useState(false);
   const [showDeptUpdate, setShowDeptUpdate] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const departmentsData = await getDepartments();
+        const professorsData = await getProfessors();
+        setDepartments(departmentsData);
+        setProfessors(professorsData);
+      } catch (error) {
+        console.error("Failed to fetch data:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (selectedProfessorId) {
+      const prof = professors.find((p) => p.id === selectedProfessorId);
+      if (prof) {
+        setName(prof.name);
+        setEmail(prof.email);
+        setBio(prof.bio || "");
+        setImage(prof.image || "");
+        setDepartmentId(prof.department?.id || "");
+      }
+    }
+  }, [selectedProfessorId]);
+
+  useEffect(() => {
+    if (selectedDepartmentId) {
+      const dept = departments.find((d) => d.id === selectedDepartmentId);
+      if (dept) {
+        setName(dept.name);
+        setEmail(dept.email);
+        setDescription(dept.description || "");
+        setImage(dept.image || "");
+      }
+    }
+  }, [selectedDepartmentId]);
 
   async function handleProfessorAdd(e) {
     e.preventDefault();
     const APIResponse = await addProfessor(
       name,
       email,
-      department,
+      departmentId,
       image,
       localStorage.getItem("token")
     );
@@ -32,242 +71,179 @@ const Change = () => {
     navigate("/professors");
   }
 
-  async function handleProfessorChange(name, email, bio, image, department) {
+  async function handleProfessorChange(e) {
+    e.preventDefault();
     const APIResponse = await updateProfessor(
       name,
       email,
       bio,
       image,
-      department,
+      departmentId,
       localStorage.getItem("token")
     );
-    setShowUpdate(false);
+    setShowProfUpdate(false);
     navigate("/professors");
   }
 
   async function handleDepartmentAdd(e) {
     e.preventDefault();
-    const APIResponse = await addDepartment(name, email, localStorage.getItem("token"));
+    const APIResponse = await addDepartment(
+      name,
+      email,
+      localStorage.getItem("token")
+    );
     setDepartments(APIResponse);
     navigate("/departments");
-  };
+  }
 
-  async function handleDepartmentChange(name, email, description, image, departmentId) {
-    const APIResponse = await updateDepartment(name, email, description, image, departmentId, localStorage.getItem("token"));
-    setShowUpdate(false);
+  async function handleDepartmentChange(e) {
+    e.preventDefault();
+    const APIResponse = await updateDepartment(
+      name,
+      email,
+      description,
+      image,
+      selectedDepartmentId,
+      localStorage.getItem("token")
+    );
+    setShowDeptUpdate(false);
     navigate("/departments");
-  };
-  
+  }
 
   return (
-    <>
+    <div className="container py-5 text-light">
       {localStorage.getItem("token") && (
-        <div>
-          {/* Add Professor Form */}
-          <form onSubmit={handleProfessorAdd} className="addProf">
-            <label>
-              Name:
-              <input
-                value={name}
-                placeholder="Enter Name"
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-            </label>
-            <br />
-            <label>
-              Department:
-              <input
-                value={department}
-                placeholder="Enter Department"
-                onChange={(e) => setDepartment(e.target.value)}
-                required
-              />
-            </label>
-            <br />
-            <label>
-              Email:
-              <input
-                value={email}
-                placeholder="Enter Email"
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </label>
-            <br />
-            <label>
-              Image:
-              <input
-                type="text"
-                value={image}
-                placeholder="Enter Image Link"
-                onChange={(e) => setImage(e.target.value)}
-              />
-            </label>
-            <br />
-            <button type="submit">Add Professor</button>
+        <>
+          {/* Add Professor */}
+          <form onSubmit={handleProfessorAdd} className="bg-dark p-4 rounded mb-5 shadow">
+            <h4 className="mb-3">Add New Professor</h4>
+            <div className="row g-3">
+              <div className="col-md-6">
+                <input className="form-control" value={name} placeholder="Name" onChange={(e) => setName(e.target.value)} required />
+              </div>
+              <div className="col-md-6">
+                <select className="form-select" value={departmentId} onChange={(e) => setDepartmentId(e.target.value)} required>
+                  <option value="">Select Department</option>
+                  {departments.map((dept) => (
+                    <option key={dept.id} value={dept.id}>
+                      {dept.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="col-md-6">
+                <input className="form-control" value={email} placeholder="Email" onChange={(e) => setEmail(e.target.value)} required />
+              </div>
+              <div className="col-md-6">
+                <input className="form-control" value={image} placeholder="Image URL" onChange={(e) => setImage(e.target.value)} />
+              </div>
+              <div className="col-12">
+                <button className="btn btn-danger w-100" type="submit">Add Professor</button>
+              </div>
+            </div>
           </form>
-  
-          {/* Add Department Form */}
-          <form onSubmit={handleDepartmentAdd} className="addDpmt">
-            <label>
-              Name:
-              <input
-                value={name}
-                placeholder="Enter Department Name"
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-            </label>
-            <br />
-            <label>
-              Description:
-              <input
-                value={description}
-                placeholder="Enter Description"
-                onChange={(e) => setDescription(e.target.value)}
-                required
-              />
-            </label>
-            <br />
-            <label>
-              Email:
-              <input
-                value={email}
-                placeholder="Enter Email"
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </label>
-            <br />
-            <label>
-              Image Link:
-              <input
-                type="text"
-                value={image}
-                placeholder="Enter Image Link"
-                onChange={(e) => setImage(e.target.value)}
-              />
-            </label>
-            <br />
-            <button type="submit">Add Department</button>
+
+          {/* Add Department */}
+          <form onSubmit={handleDepartmentAdd} className="bg-dark p-4 rounded mb-5 shadow">
+            <h4 className="mb-3">Add New Department</h4>
+            <div className="row g-3">
+              <div className="col-md-6">
+                <input className="form-control" value={name} placeholder="Department Name" onChange={(e) => setName(e.target.value)} required />
+              </div>
+              <div className="col-md-6">
+                <input className="form-control" value={email} placeholder="Email" onChange={(e) => setEmail(e.target.value)} required />
+              </div>
+              <div className="col-12">
+                <input className="form-control" value={description} placeholder="Description" onChange={(e) => setDescription(e.target.value)} required />
+              </div>
+              <div className="col-12">
+                <input className="form-control" value={image} placeholder="Image URL" onChange={(e) => setImage(e.target.value)} />
+              </div>
+              <div className="col-12">
+                <button className="btn btn-danger w-100" type="submit">Add Department</button>
+              </div>
+            </div>
           </form>
-  
-          {/* Toggle Buttons */}
-          <br />
-          <button onClick={() => setShowDeptUpdate((prev) => !prev)}>
-            Toggle Update Department Form
-          </button>
-          <button onClick={() => setShowProfUpdate((prev) => !prev)}>
-            Toggle Update Professor Form
-          </button>
-  
-          {/* Update Department Form */}
+
+          {/* Update Selectors */}
+          <div className="mb-4">
+            <label className="form-label">Select Professor to Update</label>
+            <select className="form-select" value={selectedProfessorId} onChange={(e) => { setSelectedProfessorId(e.target.value); setShowProfUpdate(true); }}>
+              <option value="">-- Choose a professor --</option>
+              {professors.map((prof) => (
+                <option key={prof.id} value={prof.id}>{prof.name}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="mb-4">
+            <label className="form-label">Select Department to Update</label>
+            <select className="form-select" value={selectedDepartmentId} onChange={(e) => { setSelectedDepartmentId(e.target.value); setShowDeptUpdate(true); }}>
+              <option value="">-- Choose a department --</option>
+              {departments.map((dept) => (
+                <option key={dept.id} value={dept.id}>{dept.name}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* Update Department */}
           {showDeptUpdate && (
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleDepartmentChange(name, email, description, image, department);
-              }}
-            >
-              <label>
-                Name:
-                <input
-                  value={name}
-                  placeholder="Enter Department Name"
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                />
-              </label>
-              <br />
-              <label>
-                Description:
-                <input
-                  value={description}
-                  placeholder="Enter Description"
-                  onChange={(e) => setDescription(e.target.value)}
-                  required
-                />
-              </label>
-              <br />
-              <label>
-                Email:
-                <input
-                  value={email}
-                  placeholder="Enter Email"
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </label>
-              <br />
-              <label>
-                Image Link:
-                <input
-                  type="text"
-                  value={image}
-                  placeholder="Enter Image Link"
-                  onChange={(e) => setImage(e.target.value)}
-                />
-              </label>
-              <br />
-              <button type="submit">Update Department</button>
+            <form onSubmit={handleDepartmentChange} className="bg-dark p-4 rounded mb-5 shadow">
+              <h4 className="mb-3">Update Department</h4>
+              <div className="row g-3">
+                <div className="col-md-6">
+                  <input className="form-control" value={name} placeholder="Department Name" onChange={(e) => setName(e.target.value)} required />
+                </div>
+                <div className="col-md-6">
+                  <input className="form-control" value={email} placeholder="Email" onChange={(e) => setEmail(e.target.value)} required />
+                </div>
+                <div className="col-12">
+                  <input className="form-control" value={description} placeholder="Description" onChange={(e) => setDescription(e.target.value)} required />
+                </div>
+                <div className="col-12">
+                  <input className="form-control" value={image} placeholder="Image URL" onChange={(e) => setImage(e.target.value)} />
+                </div>
+                <div className="col-12">
+                  <button className="btn btn-danger w-100" type="submit">Update Department</button>
+                </div>
+              </div>
             </form>
           )}
-  
-          {/* Update Professor Form */}
+
+          {/* Update Professor */}
           {showProfUpdate && (
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleProfessorChange(name, email, bio, image, department, professors?.id);
-              }}
-            >
-              <label>
-                Name:
-                <input
-                  value={name}
-                  placeholder="Enter Name"
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                />
-              </label>
-              <br />
-              <label>
-                Department:
-                <input
-                  value={department}
-                  placeholder="Enter Department"
-                  onChange={(e) => setDepartment(e.target.value)}
-                  required
-                />
-              </label>
-              <br />
-              <label>
-                Email:
-                <input
-                  value={email}
-                  placeholder="Enter Email"
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </label>
-              <br />
-              <label>
-                Image:
-                <input
-                  type="text"
-                  value={image}
-                  placeholder="Enter Image Link"
-                  onChange={(e) => setImage(e.target.value)}
-                />
-              </label>
-              <br />
-              <button type="submit">Update Professor</button>
+            <form onSubmit={handleProfessorChange} className="bg-dark p-4 rounded shadow">
+              <h4 className="mb-3">Update Professor</h4>
+              <div className="row g-3">
+                <div className="col-md-6">
+                  <input className="form-control" value={name} placeholder="Name" onChange={(e) => setName(e.target.value)} required />
+                </div>
+                <div className="col-md-6">
+                  <select className="form-select" value={departmentId} onChange={(e) => setDepartmentId(e.target.value)} required>
+                    <option value="">Select Department</option>
+                    {departments.map((dept) => (
+                      <option key={dept.id} value={dept.id}>{dept.name}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="col-md-6">
+                  <input className="form-control" value={email} placeholder="Email" onChange={(e) => setEmail(e.target.value)} required />
+                </div>
+                <div className="col-md-6">
+                  <input className="form-control" value={image} placeholder="Image URL" onChange={(e) => setImage(e.target.value)} />
+                </div>
+                <div className="col-12">
+                  <textarea className="form-control" value={bio} placeholder="Bio (optional)" onChange={(e) => setBio(e.target.value)} rows="3" />
+                </div>
+                <div className="col-12">
+                  <button className="btn btn-danger w-100" type="submit">Update Professor</button>
+                </div>
+              </div>
             </form>
           )}
-        </div>
+        </>
       )}
-    </>
+    </div>
   );
 };
 
